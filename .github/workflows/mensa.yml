@@ -1,33 +1,21 @@
 name: MENSA Checker
 
 on:
-
   schedule:
-
     - cron: "0 */6 * * *"
-
   workflow_dispatch:
 
 jobs:
-
   check:
-
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Check MENSA page
-
         run: |
-
           curl -s https://mensa.jp/exam/ > page.html
 
           if grep -q "2026" page.html; then
-
             curl -X POST https://notify-api.line.me/api/notify \
-
               -H "Authorization: Bearer ${{ secrets.LINE_TOKEN }}" \
-
               -F "message=MENSA試験日程が更新された可能性があります！ https://mensa.jp/exam/"
-
           fi
